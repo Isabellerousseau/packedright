@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-03-02
+  driver: one
+  user: one
+  product: one
+  estimated_price: 1
+  status: 
+
+two:
+  date: 2020-03-02
+  driver: two
+  user: two
+  product: two
+  estimated_price: 1
+  status: 

@@ -1,5 +1,6 @@
 class Parcel < ApplicationRecord
   belongs_to :user
+  has_many :orders
 
   CATEGORY = %w[Bike Car Van].freeze
 
