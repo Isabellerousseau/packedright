@@ -12,13 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2020_03_03_113230) do
 
+
+
   create_table "deliveries", force: :cascade do |t|
     t.decimal "longitude"
     t.decimal "latitude"
     t.integer "order_id"
     t.integer "distance"
     t.integer "price_cents", default: 0, null: false
+
     t.string "price_currency", default: "EUR", null: false
+
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_deliveries_on_order_id"
@@ -30,10 +34,14 @@ ActiveRecord::Schema.define(version: 2020_03_03_113230) do
     t.string "email"
     t.string "password"
     t.boolean "approved"
-    t.decimal "current_longitude"
-    t.decimal "current_latitude"
+
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+
+
   end
 
   create_table "orders", force: :cascade do |t|
@@ -45,7 +53,10 @@ ActiveRecord::Schema.define(version: 2020_03_03_113230) do
     t.integer "driver_id"
     t.integer "user_id"
     t.integer "estimated_price_cents", default: 0, null: false
+
     t.string "estimated_price_currency", default: "EUR", null: false
+
+
     t.integer "parcel_id"
     t.string "pickup"
     t.string "drop_off"
@@ -54,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_03_03_113230) do
     t.index ["driver_id"], name: "index_orders_on_driver_id"
     t.index ["parcel_id"], name: "index_orders_on_parcel_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+
   end
 
   create_table "pages", force: :cascade do |t|
@@ -92,6 +104,12 @@ ActiveRecord::Schema.define(version: 2020_03_03_113230) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "phone_number"
+    t.boolean "admin"
+    t.string "location"
+    t.decimal "latitude"
+    t.decimal "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
