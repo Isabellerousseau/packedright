@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_143513) do
+ActiveRecord::Schema.define(version: 2020_03_03_134721) do
+
+  create_table "deliveries", force: :cascade do |t|
+    t.decimal "longitude"
+    t.decimal "latitude"
+    t.integer "order_id"
+    t.integer "distance"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
+  end
 
   create_table "drivers", force: :cascade do |t|
     t.string "name"
@@ -23,6 +35,28 @@ ActiveRecord::Schema.define(version: 2020_03_03_143513) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
+
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date "date"
+    t.integer "status"
+    t.integer "category"
+    t.integer "weight"
+    t.boolean "fragile"
+    t.integer "driver_id"
+    t.integer "user_id"
+    t.integer "estimated_price_cents", default: 0, null: false
+    t.string "estimated_price_currency", default: "USD", null: false
+    t.integer "parcel_id"
+    t.string "pickup"
+    t.string "drop_off"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_orders_on_driver_id"
+    t.index ["parcel_id"], name: "index_orders_on_parcel_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+
   end
 
   create_table "pages", force: :cascade do |t|
@@ -40,6 +74,19 @@ ActiveRecord::Schema.define(version: 2020_03_03_143513) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "rating"
+    t.integer "user_id"
+    t.integer "driver_id"
+    t.text "decription"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_reviews_on_driver_id"
+    t.index ["order_id"], name: "index_reviews_on_order_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -48,6 +95,12 @@ ActiveRecord::Schema.define(version: 2020_03_03_143513) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "phone_number"
+    t.boolean "admin"
+    t.string "location"
+    t.decimal "latitude"
+    t.decimal "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
