@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ParcelsController < ApplicationController
-
   def index
     @parcels = policy_scope(Parcel).order(created_at: :desc)
   end
