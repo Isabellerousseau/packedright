@@ -1,6 +1,9 @@
 class DriversController < ApplicationController
   def index
-   @drivers = policy_scope(Driver).order(created_at: :desc)
+    @drivers = policy_scope(Driver).order(created_at: :desc)
+
+    @drivers = @drivers.geocoded
+      set_markers
   end
 
   def show
@@ -55,5 +58,15 @@ class DriversController < ApplicationController
 
   def driver_params
     params.require(:driver).permit(:name, :email, :phone_number, :password, :rating, :current_longitude, :current_latitude)
+  end
+
+  def set_markers
+    @markers = @drivers.map do |driver|
+      {
+        lat: driver.current_latitude,
+        lng: driver.current_longitude,
+        infoWindow: render_to_string(partial: 'info_window', locals: { driver: driver })
+      }
+    end
   end
 end
