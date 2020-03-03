@@ -18,7 +18,6 @@ class DriversController < ApplicationController
 
   def create
     @driver = Driver.new(driver_params)
-    @driver.user = current_user
     authorize @driver
     if @driver.save
       redirect_to driver_path(@driver)
@@ -57,15 +56,16 @@ class DriversController < ApplicationController
   private
 
   def driver_params
-    params.require(:driver).permit(:name, :email, :phone_number, :password, :rating, :current_longitude, :current_latitude)
+    params.require(:driver).permit(:name, :email, :phone_number, :address, :password, :rating, :current_longitude, :current_latitude)
   end
 
   def set_markers
+    @drivers = policy_scope(Driver)
     @markers = @drivers.map do |driver|
       {
-        lat: driver.current_latitude,
-        lng: driver.current_longitude,
-        infoWindow: render_to_string(partial: 'info_window', locals: { driver: driver })
+        lat: driver.latitude,
+        lng: driver.longitude
+        # infoWindow: render_to_string(partial: 'info_window', locals: { driver: driver })
       }
     end
   end
