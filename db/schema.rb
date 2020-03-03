@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_134721) do
+ActiveRecord::Schema.define(version: 2020_03_03_143513) do
 
   create_table "deliveries", force: :cascade do |t|
     t.decimal "longitude"
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 2020_03_03_134721) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
-
   end
 
   create_table "orders", force: :cascade do |t|
@@ -56,7 +55,6 @@ ActiveRecord::Schema.define(version: 2020_03_03_134721) do
     t.index ["driver_id"], name: "index_orders_on_driver_id"
     t.index ["parcel_id"], name: "index_orders_on_parcel_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
-
   end
 
   create_table "pages", force: :cascade do |t|
