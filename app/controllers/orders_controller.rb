@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @order.build_parcel
     authorize @order
   end
 
@@ -15,7 +16,9 @@ class OrdersController < ApplicationController
     if @order.save
       redirect_to order_path(@order)
     else
+      p @order.errors
       render :new
+    end
   end
 
   def edit
@@ -41,4 +44,11 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     authorize @order
   end
+
+  private
+
+  def order_params
+    params.require(:order).permit(:pickup, :drop_off, parcel_attributes: [:name, :weight, :category, :fragile])
+  end
+
 end

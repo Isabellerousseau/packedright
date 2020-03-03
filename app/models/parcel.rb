@@ -1,6 +1,6 @@
 class Parcel < ApplicationRecord
-  belongs_to :user
-  belongs_to :driver
+  belongs_to :user, optional: true
+  belongs_to :driver, optional: true
   has_one :delivery, through: :orders
   has_one :order
 
