@@ -43,6 +43,14 @@ class DriversController < ApplicationController
     redirect_to parcels_path
   end
 
+  def categories
+    @category = params[:category].capitalize
+    @drivers = Driver.where('category ILIKE ?', "%#{@category}%")
+    @drivers = @drivers.geocoded #returns flats with coordinates
+    set_markers
+    authorize @drivers
+  end
+
   private
 
   def driver_params

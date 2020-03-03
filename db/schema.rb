@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_151513) do
+ActiveRecord::Schema.define(version: 2020_03_03_105527) do
+
+  create_table "drivers", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "email"
+    t.string "password"
+    t.boolean "approved"
+    t.decimal "current_longitude"
+    t.decimal "current_latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "address"
+  end
 
   create_table "pages", force: :cascade do |t|
     t.string "home"
