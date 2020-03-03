@@ -10,7 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_151513) do
+ActiveRecord::Schema.define(version: 2020_03_03_113230) do
+
+  create_table "deliveries", force: :cascade do |t|
+    t.decimal "longitude"
+    t.decimal "latitude"
+    t.integer "order_id"
+    t.integer "distance"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "EUR", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
+  end
+
+  create_table "drivers", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "email"
+    t.string "password"
+    t.boolean "approved"
+    t.decimal "current_longitude"
+    t.decimal "current_latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date "date"
+    t.integer "status"
+    t.integer "category"
+    t.integer "weight"
+    t.boolean "fragile"
+    t.integer "driver_id"
+    t.integer "user_id"
+    t.integer "estimated_price_cents", default: 0, null: false
+    t.string "estimated_price_currency", default: "EUR", null: false
+    t.integer "parcel_id"
+    t.string "pickup"
+    t.string "drop_off"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_orders_on_driver_id"
+    t.index ["parcel_id"], name: "index_orders_on_parcel_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
 
   create_table "pages", force: :cascade do |t|
     t.string "home"
@@ -25,6 +69,19 @@ ActiveRecord::Schema.define(version: 2020_03_02_151513) do
     t.boolean "fragile"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "rating"
+    t.integer "user_id"
+    t.integer "driver_id"
+    t.text "decription"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_reviews_on_driver_id"
+    t.index ["order_id"], name: "index_reviews_on_order_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
