@@ -64,8 +64,9 @@ class DriversController < ApplicationController
     @markers = @drivers.map do |driver|
       {
         lat: driver.latitude,
-        lng: driver.longitude
-        # infoWindow: render_to_string(partial: 'info_window', locals: { driver: driver })
+        lng: driver.longitude,
+        infoWindow: render_to_string(partial: "drivers/info_window", locals: { driver: driver }),
+        image_url: helpers.asset_url('car.png')
       }
     end
   end
