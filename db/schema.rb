@@ -30,10 +30,12 @@ ActiveRecord::Schema.define(version: 2020_03_03_134721) do
     t.string "email"
     t.string "password"
     t.boolean "approved"
-    t.decimal "current_longitude"
-    t.decimal "current_latitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+
   end
 
   create_table "orders", force: :cascade do |t|
@@ -54,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_03_03_134721) do
     t.index ["driver_id"], name: "index_orders_on_driver_id"
     t.index ["parcel_id"], name: "index_orders_on_parcel_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+
   end
 
   create_table "pages", force: :cascade do |t|
