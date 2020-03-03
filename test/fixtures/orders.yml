@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-03-03
+  status: 
+  category: 
+  weight: 1
+  fragile: false
+  driver: one
+  user: one
+  estimated_price: 
+  parcel: one
+  pickup: MyString
+  drop-off: MyString
+
+two:
+  date: 2020-03-03
+  status: 
+  category: 
+  weight: 1
+  fragile: false
+  driver: two
+  user: two
+  estimated_price: 
+  parcel: two
+  pickup: MyString
+  drop-off: MyString
